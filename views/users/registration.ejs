@@ -1,0 +1,111 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+  body {
+    background: linear-gradient(to right, #1e3a8a, #6d28d9);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f8fafc;
+  }
+
+  #login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+  }
+
+  #login-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #facc15;
+  }
+
+  #login-form {
+    background-color: #1e293b;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 450px;
+  }
+
+  #login-form div {
+    margin-bottom: 20px;
+  }
+
+  #login-form input[type="text"],
+  #login-form input[type="email"],
+  #login-form input[type="password"],
+  #login-form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #334155;
+    border: none;
+    border-radius: 10px;
+    color: #f8fafc;
+    font-size: 1rem;
+  }
+
+  #submit-btn {
+    background-color: #9333ea;
+    color: white;
+    font-weight: bold;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  #submit-btn:hover {
+    background-color: #7e22ce;
+  }
+
+  #login-message {
+    color: #22d3ee;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 500;
+  }
+</style>
+
+<section id="login">
+  <h1 id="login-title">📝 User Registration Form</h1>
+
+  <div id="login-form">
+    <form action="" method="post" enctype="multipart/form-data">
+      <div>
+        <input type="text" name="name" placeholder="Enter Name" required />
+      </div>
+
+      <div>
+        <input type="email" name="email" placeholder="Enter Email" required />
+      </div>
+
+      <div>
+        <input type="text" name="mno" placeholder="Enter Mobile No." required />
+      </div>
+
+      <div>
+        <input type="file" name="image" required />
+      </div>
+
+      <div>
+        <input type="password" name="password" placeholder="Enter Password" required />
+      </div>
+
+      <div style="text-align: center;">
+        <input type="submit" value="Register" id="submit-btn" />
+      </div>
+    </form>
+
+    <% if (typeof message !== 'undefined') { %>
+      <p id="login-message"><%= message %></p>
+    <% } %>
+  </div>
+</section>
+
+<% include('../layouts/footer.ejs') %>

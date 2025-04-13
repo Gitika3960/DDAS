@@ -1,0 +1,115 @@
+<%- include('../layouts/header.ejs') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DupAlert-Home</title>
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+
+<body id="body">
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <ul id="nav-list">
+            <li><a id="nav-home" href="#">Home</a></li>
+            <li><a id="nav-features" href="#features">Features</a></li>
+            <li><a id="nav-contact" href="#contact">Contact</a></li>
+            <li><a id="nav-login" href="#login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div id="hero-content">
+            <img id="hero-logo" src="\cssImage\logo.png" alt="DupAlert Logo">
+            <h1 id="hero-title">DupAlert</h1>
+            <h2 id="hero-subtitle">Data Download Duplication Alert System (DDAS)</h2>
+            <p id="hero-description">Applicable across academic institutions, research facilities, government agencies, and more.</p>
+            <button id="download-btn">Download</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="hidden">
+        <h2 id="features-title">Key Features of DDAS</h2>
+        <div id="feature-container">
+            <div id="feature-1" class="feature">
+                <div class="icon">🔍</div>
+                <h3>Real-Time Monitoring</h3>
+                <p>Instantly detect duplicate data downloads with our advanced tracking system.</p>
+            </div>
+            <div id="feature-2" class="feature">
+                <div class="icon">⚡</div>
+                <h3>Fast & Secure</h3>
+                <p>Optimized for speed and security to prevent unauthorized duplication.</p>
+            </div>
+            <div id="feature-3" class="feature">
+                <div class="icon">📊</div>
+                <h3>Detailed Analytics</h3>
+                <p>View reports and analytics for better insights into data access.</p>
+            </div>
+            <div id="feature-4" class="feature">
+                <div class="icon">🔔</div>
+                <h3>Instant Alerts</h3>
+                <p>Receive email and SMS alerts when duplicate downloads are detected.</p>
+            </div>
+            <div id="feature-5" class="feature">
+                <div class="icon">🔒</div>
+                <h3>Role-Based Access</h3>
+                <p>Admins can define user roles and set access permissions for better control.</p>
+            </div>
+            <div id="feature-6" class="feature">
+                <div class="icon">📁</div>
+                <h3>Cloud & Local Integration</h3>
+                <p>Works seamlessly with cloud storage and local databases.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login">
+        <h1 id="login-title">Login</h1>
+
+        <% if (typeof message !== 'undefined') { %>
+            <h4 id="login-message"><%= message %></h4>
+        <% } %>
+
+        <form id="login-form" action="/login" method="post">
+            <input id="email-input" type="email" name="email" required placeholder="Enter Email" />
+            <br /><br />
+            <input id="password-input" type="password" name="password" required placeholder="Enter Password" />
+            <br /><br />
+            <input id="submit-btn" type="submit" value="Login" />
+        </form>
+
+        <div id="login-links">
+            <a id="register-link" href="/register">Register</a>
+            <a id="forget-link" href="/forget">Forget Password</a>
+            <a id="verify-link" href="/verification">Verification</a>
+            <a id="admin-link" href="/admin/login">Admin login</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="hidden">
+        <h2 id="contact-title">Connect With Us</h2>
+        <div id="connect-container">
+            <div id="email-card" class="connect-card">
+                <div class="icon">📧</div>
+                <h3>Email</h3>
+                <p>support@dupalert.com</p>
+                <a href="mailto:support@dupalert.com">Send a Message</a>
+            </div>
+            <div id="phone-card" class="connect-card">
+                <div class="icon">📞</div>
+                <h3>Phone</h3>
+                <p>+1 (123) 456-7890</p>
+                <a href="tel:+91234567890">Call Now</a>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+<%- include('../layouts/footer.ejs') %>

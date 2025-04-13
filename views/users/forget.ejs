@@ -1,0 +1,78 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #1e3a8a, #6d28d9);
+    margin: 0;
+    padding: 0;
+    color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .forget-container {
+    background-color: #1e293b;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .forget-container h1 {
+    margin-bottom: 1.2rem;
+    font-size: 1.6rem;
+    color: #facc15;
+  }
+
+  .forget-container h4 {
+    margin: 0.8rem 0;
+    color: #22d3ee;
+  }
+
+  .forget-container input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin: 1rem 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #334155;
+    color: #f8fafc;
+    font-size: 1rem;
+  }
+
+  .forget-container input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #9333ea;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .forget-container input[type="submit"]:hover {
+    background-color: #7e22ce;
+  }
+</style>
+
+<div class="forget-container">
+  <h1>📩 Forget Password</h1>
+
+  <% if (typeof message !== 'undefined') { %>
+    <h4><%= message %></h4>
+  <% } %>
+
+  <form action="/forget" method="post">
+    <input type="email" name="email" required placeholder="Enter Email" />
+    <br />
+    <input type="submit" value="Send Reset Link" />
+  </form>
+</div>
+
+<% include('../layouts/footer.ejs') %>

@@ -1,0 +1,82 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+  body {
+    background: linear-gradient(to right, #1e3a8a, #6d28d9);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f8fafc;
+  }
+
+  .verification-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 20px;
+  }
+
+  .verification-container h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #facc15;
+  }
+
+  .verification-form {
+    background-color: #1e293b;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .verification-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #334155;
+    border: none;
+    border-radius: 10px;
+    color: #f8fafc;
+    font-size: 1rem;
+  }
+
+  .verification-form input[type="submit"] {
+    background-color: #9333ea;
+    color: white;
+    font-weight: bold;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+
+  .verification-form input[type="submit"]:hover {
+    background-color: #7e22ce;
+  }
+
+  .message {
+    color: #22d3ee;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 500;
+  }
+</style>
+
+<div class="verification-container">
+  <h1>📧 Verification</h1>
+
+  <% if (typeof message !== 'undefined') { %>
+    <div class="message"><%= message %></div>
+  <% } %>
+
+  <form action="/verification" method="post" class="verification-form">
+    <input type="email" name="email" required placeholder="Enter Email" />
+    <input type="submit" value="Send Verification Link" />
+  </form>
+</div>
+
+<% include('../layouts/footer.ejs') %>

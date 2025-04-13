@@ -1,0 +1,141 @@
+<% include("../layouts/header.ejs") %>
+
+<style>
+  body {
+    background: linear-gradient(to right, #1e3a8a, #6d28d9);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f8fafc;
+  }
+
+  .dashboard-container {
+    padding: 60px 30px;
+    text-align: center;
+  }
+
+  h1 {
+    color: #facc15;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-container a {
+    display: inline-block;
+    background-color: #9333ea;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .dashboard-container a:hover {
+    background-color: #7e22ce;
+  }
+
+  table {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    background-color: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  }
+
+  table th, table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #334155;
+  }
+
+  table th {
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-weight: bold;
+  }
+
+  table td {
+    color: #e2e8f0;
+  }
+
+  table img {
+    border-radius: 10px;
+  }
+
+  .status {
+    font-weight: bold;
+    color: #f43f5e;
+  }
+
+  .verified {
+    color: #22c55e;
+  }
+
+  .actions a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .actions a:hover {
+    color: #0ea5e9;
+  }
+
+  .not-found {
+    color: #f87171;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+
+<div class="dashboard-container">
+  <h1>📊 Dashboard</h1>
+
+  <a href="/admin/new-user">➕ Add New User</a>
+
+  <br><br>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Image</th>
+      <th>Verified</th>
+      <th>Actions</th>
+    </tr>
+
+    <% if(users.length > 0){ %>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.mobile %></td>
+          <td><img src="/userImages/<%= user.image %>" alt="User Image" width="100px" height="100px"></td>
+          <td class="<%= user.is_varified == 1 ? 'verified' : 'status' %>">
+            <%= user.is_varified == 1 ? 'Verified' : 'Not Verified' %>
+          </td>
+          <td class="actions">
+            <a href="/admin/edit-user?id=<%= user._id %>">✏️ Edit</a>
+            <a href="/admin/delete-user?id=<%= user._id %>">🗑️ Delete</a>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr>
+        <td colspan="6" class="not-found">🚫 Users Not Found</td>
+      </tr>
+    <% } %>
+  </table>
+
+  <br><br>
+  <a href="/admin/home">🏠 Go to Home</a>
+</div>
+
+<% include("../layouts/footer.ejs") %>

@@ -1,0 +1,209 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+  body {
+    background-color: #0f172a;
+    color: #e0e7ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #1e293b;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(131, 133, 255, 0.2);
+  }
+
+  h3, h4 {
+    color: #c084fc;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-section img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #7c3aed;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
+  }
+
+  .user-info table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .user-info td {
+    padding: 10px 0;
+    border-bottom: 1px solid #334155;
+  }
+
+  .user-info td:first-child {
+    font-weight: bold;
+    width: 150px;
+    color: #facc15;
+  }
+
+  .actions {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .actions a {
+    color: #7dd3fc;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .actions a:hover {
+    color: #facc15;
+  }
+
+  hr {
+    margin: 2rem 0;
+    border: 1px solid #334155;
+  }
+
+  .file-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .file-table th, .file-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+  }
+
+  .file-table th {
+    background-color: #312e81;
+    color: #facc15;
+  }
+
+  .file-table td {
+    background-color: #1e293b;
+  }
+
+  .file-table button {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .file-table button:hover {
+    background-color: #facc15;
+    color: #1e1b4b;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container">
+  <h3>Welcome, <%= user.name %></h3>
+
+  <div class="profile-section">
+    <img src="userImages/<%= user.image %>" alt="<%= user.image %>">
+    <div class="user-info">
+      <table>
+        <tr>
+          <td>Email</td>
+          <td><%= user.email %></td>
+        </tr>
+        <tr>
+          <td>Mobile</td>
+          <td><%= user.mobile %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a href="/edit?id=<%= user._id %>">✏️ Edit Profile</a>
+    <a href="/logout">🚪 Logout</a>
+  </div>
+
+  <hr />
+
+  <h4>📁 Download Files</h4>
+
+  <table class="file-table">
+    <thead>
+      <tr>
+        <th>File Name</th>
+        <th>Type</th>
+        <th>Size (KB)</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% files.forEach(file => { %>
+        <tr>
+          <td><%= file.originalName %></td>
+          <td><%= file.fileType %></td>
+          <td><%= (file.size / 1024).toFixed(2) %></td>
+          <td>
+            <button onclick="downloadFile('<%= file.storedName %>')">Download</button>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function downloadFile(filename) {
+    fetch(`/download/${filename}`)
+      .then(async (response) => {
+        const contentType = response.headers.get("Content-Type");
+
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
+
+          if (data.message === "already_downloaded") {
+            const confirmAgain = confirm(
+              `You’ve already downloaded "${data.filename}". Download again?`
+            );
+            if (confirmAgain) {
+              window.location.href = `/force-download/${data.filename}`;
+            }
+          } else {
+            alert(data.message || "Unable to download file.");
+          }
+        } else {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }
+      })
+      .catch((err) => {
+        console.error("Download error:", err);
+        alert("Something went wrong during download.");
+      });
+  }
+</script>
+
+<% include('../layouts/footer.ejs') %>

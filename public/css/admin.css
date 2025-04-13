@@ -1,0 +1,10 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  nav {
+    background-color: #222222;
+  }
+  /* Add more admin-specific styles here */
+  

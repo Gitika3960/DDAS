@@ -1,0 +1,94 @@
+<% include('../layouts/header.ejs') %>
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+
+  h1 {
+    text-align: center;
+    color: #facc15;
+    margin-bottom: 30px;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: #e2e8f0;
+  }
+
+  form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #10b981;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  form input[type="submit"]:hover {
+    background-color: #059669;
+  }
+
+  p.message {
+    color: #f87171;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #38bdf8;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+</style>
+
+<div class="container">
+  <h1>Add New User</h1>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Enter Name" required>
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <input type="text" name="mno" placeholder="Enter Mobile No." required>
+    <input type="file" name="image" required>
+    <input type="submit" value="Add User">
+  </form>
+
+  <% if (typeof message !== 'undefined') { %>
+    <p class="message"><%= message %></p>
+  <% } %>
+
+  <a href="/admin/dashboard" class="back-link">← Go Back to Dashboard</a>
+</div>
+
+<% include('../layouts/footer.ejs') %>
